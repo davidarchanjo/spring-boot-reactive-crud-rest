@@ -5,7 +5,7 @@
 # Introduction
 
 ## Overview
-**Spring WebFlux** was released in the Spring Framework 5.0 as a reactive-stack non-blocking web framework alternative to Spring MVC. It was designed to support fully non-blocking reactive streams with <u>back-pressure</u><a href="#note1" id="note1ref"><sup>1</sup></a> capability, levearaging multi-core and next-generation processors on handling massive numbers of concurrent connections with a small number of threads and able to scale with fewer hardware resources. Spring WebFlux is built on top of the [Project Reactor](https://github.com/reactor/reactor) library, according to specified on the [Reactive Streams Specification](https://www.reactive-streams.org/) and runs on servers like [Netty](https://netty.io/) (default), [Undertow](https://undertow.io/) and also on Servlet 3.1+ containers.
+**Spring WebFlux** was released in the Spring Framework 5.0 as a reactive-stack non-blocking web framework alternative to Spring MVC. It was designed to support fully non-blocking reactive streams with <ins>back-pressure</ins><a href="#note1" id="note1ref"><sup>1</sup></a> capability, levearaging multi-core and next-generation processors on handling massive numbers of concurrent connections with a small number of threads and able to scale with fewer hardware resources. Spring WebFlux is built on top of the [Project Reactor](https://github.com/reactor/reactor) library, according to specified on the [Reactive Streams Specification](https://www.reactive-streams.org/) and runs on servers like [Netty](https://netty.io/) (default), [Undertow](https://undertow.io/) and also on Servlet 3.1+ containers.
 
 
 ## Reactive Programming
@@ -13,7 +13,7 @@ Reactive programming is a programming standard that is built around an asynchron
 
 
 ## Reactive API
-**Spring WebFlux** uses two API types of <u>publishers</u><a href="#note2" id="note2ref"><sup>2</sup></a> to work on data sequences, [Mono](https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Mono.html) and [Flux](https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html):
+**Spring WebFlux** uses two API types of <ins>publishers</ins><a href="#note2" id="note2ref"><sup>2</sup></a> to work on data sequences, [Mono](https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Mono.html) and [Flux](https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html):
 * `Mono` is used for handling sequences of 0 or 1 element
   ```java
   Mono<Long> mono = Mono.just(1);
@@ -172,7 +172,7 @@ For simplicity's sake, I prefer to use the command line when trying something ne
   <code>java --enable-preview -jar target/spring-boot-crud-rest-reactive-1.0.0.jar</code>
 </ol>
 
-**NOTE**: The `--enable-preview` flag is been used to unlock preview features on the JVM because I'm using the _new <u>switch expression</u><a href="#note3" id="note3ref"><sup>3</sup></a> with arrow label_ as part of the implementation of the [GlobalWebFluxExceptionHandler](src/main/java/io/davidarchanjo/code/exception/GlobalWebFluxExceptionHandler.java).
+**NOTE**: The `--enable-preview` flag is been used to unlock preview features on the JVM because I'm using the _new <ins>switch expression</ins><a href="#note3" id="note3ref"><sup>3</sup></a> with arrow label_ as part of the implementation of the [GlobalWebFluxExceptionHandler](src/main/java/io/davidarchanjo/code/exception/GlobalWebFluxExceptionHandler.java).
 
 
 ## Maven Configuration
@@ -226,7 +226,7 @@ Your output should be similar to the following screenshot:
     }
   ]
   ````
-  **NOTE:** According to what was set through [data.sql](src/main/resources/schema/data.sql), the application is successfully started with the database populated with three applications.
+  **NOTE:** According to what was set through [data.sql](src/main/resources/schema/data.sql), the application should start with the database populated with three applications.
 
 2. Get App By Id
 - HTTP Method: GET
@@ -281,8 +281,8 @@ Your output should be similar to the following screenshot:
 The resources for implementing Reactive Restful APIs using Spring Boot are almost infinite and up-to-date with what is most advanced for building Java-based systems with scalability and intelligent use of computational resources in mind, thanks to initiatives like [Project Reactor](https://projectreactor.io/) and [RxJava](https://github.com/ReactiveX/RxJava). In this project my objectives were to highlight the main characteristics of the reactive programming usage focused on the different ways of defining endpoints, via annotations and by function routes, as well as demonstrate the power and simplicity on how data can be manipulated reactively in contrast on how we are used to doing in the "old-school way" with Spring MVC.
 
 
-<a id="note1" href="#note1ref"><sup>1</sup></a> <u>back-pressure</u> is a mechanism that allows the sender to control the rate of consumption of the data stream so that the subscriber is not overloaded.
+<a id="note1" href="#note1ref"><sup>1</sup></a> <ins>back-pressure</ins> - is a mechanism that allows the sender to control the rate of consumption of the data stream so that the subscriber is not overloaded.
 
-<a id="note2" href="#note2ref"><sup>2</sup></a> <u>publisher</u> is a provider of a potentially unbounded number of sequenced elements, publishing them according to the demand received from its subscriber(s).
+<a id="note2" href="#note2ref"><sup>2</sup></a> <ins>publisher</ins> - is a provider of a potentially unbounded number of sequenced elements, publishing them according to the demand received from its subscriber(s).
 
-<a id="note3" href="#note3ref"><sup>3</sup></a> <u>switch expression</u> check [here](https://www.infoq.com/articles/java-12-switch-expression/) for more details.
+<a id="note3" href="#note3ref"><sup>3</sup></a> <ins>switch expression</ins> - check [here](https://www.infoq.com/articles/java-12-switch-expression/) for more details.
