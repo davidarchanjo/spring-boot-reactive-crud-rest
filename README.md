@@ -172,7 +172,7 @@ For simplicity's sake, I prefer to use the command line when trying something ne
   <code>java --enable-preview -jar target/spring-boot-crud-rest-reactive-1.0.0.jar</code>
 </ol>
 
-**NOTE**: The `--enable-preview` flag is used to unlock preview features on the JVM because I'm using the _new <u>switch expression</u><a href="#note3" id="note3ref"><sup>3</sup></a> with arrow label_ as part of the implementation of the [GlobalWebFluxExceptionHandler](src/main/java/io/davidarchanjo/code/exception/GlobalWebFluxExceptionHandler.java).
+**NOTE**: The `--enable-preview` flag is been used to unlock preview features on the JVM because I'm using the _new <u>switch expression</u><a href="#note3" id="note3ref"><sup>3</sup></a> with arrow label_ as part of the implementation of the [GlobalWebFluxExceptionHandler](src/main/java/io/davidarchanjo/code/exception/GlobalWebFluxExceptionHandler.java).
 
 
 ## Maven Configuration
