@@ -173,7 +173,6 @@ For simplicity's sake, I prefer to use the command line when trying something ne
 </ol>
 
 **NOTE**: The `--enable-preview` flag is used to unlock preview features on the JVM because I'm using the _new <u>switch expression</u><a href="#note3" id="note3ref"><sup>3</sup></a> with arrow label_ as part of the implementation of the [GlobalWebFluxExceptionHandler](src/main/java/io/davidarchanjo/code/exception/GlobalWebFluxExceptionHandler.java).
-![switch_expression](./assets/switch_expression.jpg)
 
 
 ## Maven Configuration
