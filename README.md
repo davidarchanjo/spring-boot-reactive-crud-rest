@@ -103,14 +103,14 @@ By default, in non-reactive Spring Boot application, we leverage `schema.sql` an
 **Spring WebFlux** supports two programming models:
 
 - Annotation-based
-   * Publishes a single resource by using a `Mono` since we want to return at most one element:
+   * Publishing a single resource by using a `Mono` since we want to return at most one element:
    ```java
    @GetMapping("{id}")
    public Mono<ClientDTO> getClientById(@PathVariable String id) {
       return clientService.findById(id);
    }
    ```
-   * Publishes a collection of resources by returning a `Flux` since we want to return 0 or N elements:
+   * Publishing a collection of resources by returning a `Flux` since we want to return 0 or N elements:
    ```java
    @GetMapping("{id}")
    public Flux<ClientDTO> getAllClient() {
@@ -119,7 +119,7 @@ By default, in non-reactive Spring Boot application, we leverage `schema.sql` an
    ```
 
 - Functional-based
-   * Exposes a route for returning a single resource:
+   * Exposing a route for returning a single resource:
    ```java
    @Bean
    public RouterFunction<ServerResponse> getClientById() {
@@ -127,7 +127,7 @@ By default, in non-reactive Spring Boot application, we leverage `schema.sql` an
          req -> ok().body(clientService.findById(req.pathVariable("id")), ClientDTO.class));
    }   
    ```
-   * Exposes a route for returning a collection of resources:
+   * Exposing a route for returning a collection of resources:
    ```java
    @Bean
    public RouterFunction<ServerResponse> getClientById() {
@@ -140,7 +140,7 @@ By default, in non-reactive Spring Boot application, we leverage `schema.sql` an
 
 
 ## Exception Handling  
-When working with Spring MVC application, `@ControllerAdvice` provides a way to unify and centralize exception handling across the whole application reducing code duplication and keeping our code clean. With applications powered by **Spring WebFlux** it wouldn't be different. I implemented separately for both endpoint types (annotation-based and functional-route-based) global exception handling that can be checked on the classes [GlobalWebMVCExceptionHandler](src/main/java/io/davidarchanjo/code/exception/GlobalWebMVCExceptionHandler.java) and [GlobalWebFluxExceptionHandler](src/main/java/io/davidarchanjo/code/exception/GlobalWebFluxExceptionHandler.java) respectively.  
+When working with Spring MVC application, `@ControllerAdvice` provides a way to unify and centralize exception handling across the whole application by reducing code duplication resulting in cleaner code. With applications powered by **Spring WebFlux** it wouldn't be different. I implemented separately for both endpoint types (annotation-based and functional-route-based) global exception handling that can be checked on the classes [GlobalWebMVCExceptionHandler](src/main/java/io/davidarchanjo/code/exception/GlobalWebMVCExceptionHandler.java) and [GlobalWebFluxExceptionHandler](src/main/java/io/davidarchanjo/code/exception/GlobalWebFluxExceptionHandler.java) respectively.  
 
 
 
@@ -157,7 +157,7 @@ For simplicity's sake, I prefer to use the command line when trying something ne
   <code>java --enable-preview -jar target/spring-boot-crud-rest-reactive-1.0.0.jar</code>
 </ol>
 
-**NOTE**: The <u>--enable-preview</u><a href="#note3" id="note3ref"><sup>3</sup></a> flag is used to unlock preview features on the JVM because I'm doing _new switch expression with arrow label_ as part of the implementation of the [GlobalWebFluxExceptionHandler](src/main/java/io/davidarchanjo/code/exception/GlobalWebFluxExceptionHandler.java).
+**NOTE**: The `--enable-preview` flag is used to unlock preview features on the JVM because I'm using the _new <u>switch expression</u><a href="#note3" id="note3ref"><sup>3</sup></a> with arrow label_ as part of the implementation of the [GlobalWebFluxExceptionHandler](src/main/java/io/davidarchanjo/code/exception/GlobalWebFluxExceptionHandler.java).
 ![switch_expression](./assets/switch_expression.jpg)
 
 
@@ -271,4 +271,4 @@ The resources for implementing Reactive Restful APIs using Spring Boot are almos
 
 <a id="note2" href="#note2ref"><sup>2</sup></a> <u>publisher</u> is a provider of a potentially unbounded number of sequenced elements, publishing them according to the demand received from its subscriber(s).
 
-<a id="note3" href="#note3ref"><sup>3</sup></a> <u>back-pressure</u> is a mechanism that allows the sender to control the rate of consumption of the data stream so that the subscriber is not overloaded.
+<a id="note3" href="#note3ref"><sup>3</sup></a> <u>switch expression</u> check [here](https://www.infoq.com/articles/java-12-switch-expression/) for more details.
