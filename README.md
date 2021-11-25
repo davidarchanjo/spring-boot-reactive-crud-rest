@@ -245,7 +245,7 @@ Your output should be similar to the following screenshot:
 
 
 # Conclusion
-The resources for implementing Reactive Restful APIs using Spring Boot are almost infinite and up-to-date with what is most advanced for building Java-based systems with scalability and intelligent use of computational resources in mind, thanks to initiatives like [Project Reactor](https://projectreactor.io/) and [RxJava](https://github.com/ReactiveX/RxJava). In this project my objectives were to highlight the main characteristics of the use of the reactive programming model focused on the different ways of defining endpoints, via annotations and by function routes, as well as demonstrate the power and simplicity on how data can be manipulated reactively in contrast on how we are used to doing in the "old-school way" with Spring MVC.
+The resources for implementing Reactive Restful APIs using Spring Boot are almost infinite and up-to-date with what is most advanced for building Java-based systems with scalability and intelligent use of computational resources in mind, thanks to initiatives like [Project Reactor](https://projectreactor.io/) and [RxJava](https://github.com/ReactiveX/RxJava). In this project my objectives were to highlight the main characteristics of the reactive programming usage focused on the different ways of defining endpoints, via annotations and by function routes, as well as demonstrate the power and simplicity on how data can be manipulated reactively in contrast on how we are used to doing in the "old-school way" with Spring MVC.
 
 
 <a id="note1" href="#note1ref"><sup>1</sup></a> <u>back-pressure</u> is a mechanism that allows the sender to control the rate of consumption of the data stream so that the subscriber is not overloaded.
