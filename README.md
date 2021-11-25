@@ -15,74 +15,54 @@ Reactive programming is a programming standard that is built around an asynchron
 ## Reactive API
 **Spring WebFlux** uses two API types of <u>publishers</u><a href="#note2" id="note2ref"><sup>2</sup></a> to work on data sequences, [Mono](https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Mono.html) and [Flux](https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html):
 * `Mono` is used for handling sequences of 0 or 1 element
-```java
-Mono<Long> mono = Mono.just(1);
-Mono<String> mono = Mono.just("Foo");
-Mono<String> mono = Mono.empty();
-```
+  ```java
+  Mono<Long> mono = Mono.just(1);
+  Mono<String> mono = Mono.just("Foo");
+  Mono<String> mono = Mono.empty();
+  ```
 
 * `Flux` is used for handling sequences of 0 to N elements
-```java
-Flux<String> flux = Flux.just("Java", "Foo", "Bar");
-Flux<Long> flux = Flux.fromArray(new Long[]{1, 2, 3});
-Flux<String> flux = Flux.fromIterable(Arrays.asList("A", "B", "C"));
-```
+  ```java
+  Flux<String> flux = Flux.just("Java", "Foo", "Bar");
+  Flux<Long> flux = Flux.fromArray(new Long[]{1, 2, 3});
+  Flux<String> flux = Flux.fromIterable(Arrays.asList("A", "B", "C"));
+  ```
 
-## Data Stream Classification
-Reactive programming is all about working with data streams and there are two categories to consider: Cold Stream and Hot Streams. This distinction mainly has to do with how the reactive stream reacts to subscribers.
+  ### Data Stream Classification
+  Reactive programming is all about working with data streams and there are two categories to consider: Cold Stream and Hot Streams. This distinction mainly has to do with how the reactive stream reacts to subscribers.
 
-* **Cold Streams** are lazy (i.e. pull based) streams, formed by a set of pre-defined data waiting for subscribers. Once the subscriber is registered, the cold stream starts to emit the data. An example would be streaming of movies from plataforms like Netflix that occurs only upon user requests.
+  * **Cold Streams** are lazy (i.e. pull based) streams, formed by a set of pre-defined data waiting for subscribers. Once the subscriber is registered, the cold stream starts to emit the data. An example would be streaming of movies from plataforms like Netflix that occurs only upon user requests.
 
-* **Hot streams** are active streams (i.e. push based), which are waiting for data to be sent to registered subscribers. As soon as the subscriber is related to the hot stream it starts to react to the data. An example would be an one-click listener on user interfaces (UI).
+  * **Hot streams** are active streams (i.e. push based), which are waiting for data to be sent to registered subscribers. As soon as the subscriber is related to the hot stream it starts to react to the data. An example would be an one-click listener on user interfaces (UI).
 
 
 ## Spring WebFlux or Spring MVC?
 Spring MVC is built on the Servlet API and uses a synchronous blocking I/O approach with a one-request-per-thread model. The choice between one over the other will depend on the needs and particularities of the project. For instance, if you already have a Spring MVC application that is working fine, there is no need to adapt it to be reactive since imperative programming is historycally easiest to write, understand, maintain and debug. Also, we have a large choice of libraries that is mostly blocking. On the other hand you can be benefited on chosing the reactive way for simple applications or microservices that have less complex requirements by taking advantage of the lightweight and functional programming style, powered by Java lambdas, which fits very well when comes to write code reactively.
 
 The following diagram provides a comparing overview between Spring WebFlux and Spring MVC.
-
 ![banner](./assets/spring-mvc-vs-webflux.jpg)
 
 
-# Project Structure
-Follows the base folders in which the project is organized and the purpose of each:
-- [📁 application](src/main/java/io/davidarchanjo/code/application): contains the main class annotated with:
-   * `@EntityScan` which indicates the package location of Entity classes;
-   * `@SpringBootApplication` which indicates the source class to bootstrap and launch the Spring Boot application;
-   * `@EnableR2dbcRepositories` which activates reactive relational repositories using R2DBC and points out the package location of R2DBC repository interface definitions
-- [📁 builder](src/main/java/io/davidarchanjo/code/builder): contains utility component class responsible for converting Entity to DTO and vice-versa;
-- [📁 config](src/main/java/io/davidarchanjo/code/config): contain definition of beans through configuration classes annotated with `@Configuration`;
-- [📁 controller](src/main/java/io/davidarchanjo/code/controller): contains class annotated with `@RestController` which is where HTTP request handler methods are defined and implemented;
-- [📁 exception](src/main/java/io/davidarchanjo/code/exception): contain custom exceptions for handling specific data consistent and/or business rule violations; also contain class annotated with `@ControllerAdvice` to centralize exception handling across the whole application
-- [📁 handler](src/main/java/io/davidarchanjo/code/handler): contains a component class where are implemented handler methods for HTTP requests, in which the requests are directed to the specified business service interface;
-- [📁 domain](src/main/java/io/davidarchanjo/code/model/domain): contain POJO classes representing database entities i.e., classes mapping database tables;
-- [📁 dto](src/main/java/io/davidarchanjo/code/model/dto): contain DTO classes which are used as objects that pass through architectural boundaries to transfer data;
-- [📁 repository](src/main/java/io/davidarchanjo/code/repository): contains a class annotated with `@ReactiveCrudRepository` responsible for providing the mechanism for storage, retrieval, search, update and delete operation of data against a database in a rective way;
-- [📁 router](src/main/java/io/davidarchanjo/code/router): contains a configuration class where are exposed through a `@Bean` method all the HTTP routes;
-- [📁 service](src/main/java/io/davidarchanjo/code/service): contains a class annotated with `@Service` in which business logic is implemented;
-
-
-# Prerequisites
-- Maven 3+
-- JDK 17
-- Coffee ☕ 
-
-# Libraries and Dependencies
-- [Spring WebFlux](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html)
-- [Spring Data R2DBC](https://spring.io/projects/spring-data-r2dbc)
-- [Spring DevTools](https://docs.spring.io/spring-boot/docs/current/reference/html/using.html#using.devtools)
-- [R2DBC-H2](https://github.com/r2dbc/r2dbc-h2)
-- [H2 Database](https://www.h2database.com/html/main.html)
-- [Lombok](https://projectlombok.org/)
-- [Model Mapper](http://modelmapper.org/)
-
-
-# Spring Data
+## Reactive Database
+The [R2DBC](https://r2dbc.io/) project brought us reactive programming interface to relational databases, which Spring Data relies on it to support reactive database connectivity.
+### Database Initialization
 By default, in non-reactive Spring Boot application, we leverage `schema.sql` and `data.sql` files for setting up an initial schema and populating it with some data. However, when working with Spring Data R2DBC, we have to take an extra step to set a schema and get it initialized with data dinamically as follows:
   - schema.sql
-  ![schema.sql](./assets/schema-sql.jpg)
+    ```sql
+    CREATE TABLE app (
+      id INTEGER NOT NULL AUTO_INCREMENT,
+      name VARCHAR(255) NOT NULL,
+      author VARCHAR(255) NOT NULL,
+      version VARCHAR(255) NOT NULL,
+      PRIMARY KEY (id)
+    );
+    ```
   - data.sql
-  ![data.sql](./assets/data-sql.jpg)
+    ```sql
+    INSERT INTO app (id, name, author, version) VALUES (1, 'Netflix', 'Foo Bar', '0.0.1-SNAPSHOT');
+    INSERT INTO app (id, name, author, version) VALUES (2, 'Facebook', 'Foo Bar', '0.0.1-SNAPSHOT');
+    INSERT INTO app (id, name, author, version) VALUES (3, 'Chrome', 'Foo Bar', '0.0.1-SNAPSHOT');
+    ```
   - Java bean
     ```java
     @Bean
@@ -99,7 +79,7 @@ By default, in non-reactive Spring Boot application, we leverage `schema.sql` an
     ```
 
 
-# Reactive REST Application
+## Reactive REST Application
 **Spring WebFlux** supports two programming models:
 
 - Annotation-based
@@ -139,9 +119,44 @@ By default, in non-reactive Spring Boot application, we leverage `schema.sql` an
   ⚠️ In this sample project, I'm implementing on both ways in order to demonstrate the power and simplicity of functional programming, as most of us are already used to the annotation style from Spring MVC.
 
 
-## Exception Handling  
-When working with Spring MVC application, `@ControllerAdvice` provides a way to unify and centralize exception handling across the whole application by reducing code duplication resulting in cleaner code. With applications powered by **Spring WebFlux** it wouldn't be different. I implemented separately for both endpoint types (annotation-based and functional-route-based) global exception handling that can be checked on the classes [GlobalWebMVCExceptionHandler](src/main/java/io/davidarchanjo/code/exception/GlobalWebMVCExceptionHandler.java) and [GlobalWebFluxExceptionHandler](src/main/java/io/davidarchanjo/code/exception/GlobalWebFluxExceptionHandler.java) respectively.  
+  ### Exception Handling
+  When working with Spring MVC application, `@ControllerAdvice` along with `@ExceptionHandler` provide us a way to unify and centralize exception handling across the whole application, what benefits in the reduction of code duplication and in building cleaner code. With Spring WebFlux-powered applications it wouldn't be different! 
+  
+  Unfortunately `@ControllerAdvice` does not catch exceptions that happen from requests targeted to reactive routes. For this reason I implemented for both endpoint types (i.e. annotation-based and functional-route-based) global exception handling classes that can be checked on [GlobalWebMVCExceptionHandler](src/main/java/io/davidarchanjo/code/exception/GlobalWebMVCExceptionHandler.java) and [GlobalWebFluxExceptionHandler](src/main/java/io/davidarchanjo/code/exception/GlobalWebFluxExceptionHandler.java) respectively.  
 
+
+# Prerequisites
+- Maven 3+
+- JDK 17
+- Coffee ☕ 
+
+
+# Libraries and Dependencies
+- [Spring WebFlux](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html)
+- [Spring Data R2DBC](https://spring.io/projects/spring-data-r2dbc)
+- [Spring DevTools](https://docs.spring.io/spring-boot/docs/current/reference/html/using.html#using.devtools)
+- [R2DBC-H2](https://github.com/r2dbc/r2dbc-h2)
+- [H2 Database](https://www.h2database.com/html/main.html)
+- [Lombok](https://projectlombok.org/)
+- [Model Mapper](http://modelmapper.org/)
+
+
+# Project Structure
+Follows the base folders in which the project is organized and the purpose of each:
+- [📁 application](src/main/java/io/davidarchanjo/code/application): contains the main class annotated with:
+   * `@EntityScan` which indicates the package location of Entity classes;
+   * `@SpringBootApplication` which indicates the source class to bootstrap and launch the Spring Boot application;
+   * `@EnableR2dbcRepositories` which activates reactive relational repositories using R2DBC and points out the package location of R2DBC repository interface definitions
+- [📁 builder](src/main/java/io/davidarchanjo/code/builder): contains utility component class responsible for converting Entity to DTO and vice-versa;
+- [📁 config](src/main/java/io/davidarchanjo/code/config): contain definition of beans through configuration classes annotated with `@Configuration`;
+- [📁 controller](src/main/java/io/davidarchanjo/code/controller): contains class annotated with `@RestController` which is where HTTP request handler methods are defined and implemented;
+- [📁 exception](src/main/java/io/davidarchanjo/code/exception): contain custom exceptions for handling specific data consistent and/or business rule violations; also contain class annotated with `@ControllerAdvice` to centralize exception handling across the whole application
+- [📁 handler](src/main/java/io/davidarchanjo/code/handler): contains a component class where are implemented handler methods for HTTP requests, in which the requests are directed to the specified business service interface;
+- [📁 domain](src/main/java/io/davidarchanjo/code/model/domain): contain POJO classes representing database entities i.e., classes mapping database tables;
+- [📁 dto](src/main/java/io/davidarchanjo/code/model/dto): contain DTO classes which are used as objects that pass through architectural boundaries to transfer data;
+- [📁 repository](src/main/java/io/davidarchanjo/code/repository): contains a class annotated with `@ReactiveCrudRepository` responsible for providing the mechanism for storage, retrieval, search, update and delete operation of data against a database in a rective way;
+- [📁 router](src/main/java/io/davidarchanjo/code/router): contains a configuration class where are exposed through a `@Bean` method all the HTTP routes;
+- [📁 service](src/main/java/io/davidarchanjo/code/service): contains a class annotated with `@Service` in which business logic is implemented;
 
 
 # Booting Up
