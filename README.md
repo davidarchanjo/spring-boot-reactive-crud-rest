@@ -5,7 +5,7 @@
 # Introduction
 
 ## Overview
-**Spring WebFlux** was released in the Spring Framework 5.0 as a reactive-stack non-blocking web framework alternative to Spring MVC. It was designed to support fully non-blocking reactive streams with <u>back-pressure</u><a href="#note1" id="note1ref"><sup>1</sup></a> capability, levearaging multi-core and next-generation processors on handling massive numbers of concurrent connections with a small number of threads and able to scale with fewer hardware resources. Spring WebFlux is built on top of the [Project Reactor](https://github.com/reactor/reactor) library, according to specified on the [Reactive Streams Specification](https://www.reactive-streams.org/) and runs on servers like as Netty (default), Undertow, and Servlet 3.1+ containers.
+**Spring WebFlux** was released in the Spring Framework 5.0 as a reactive-stack non-blocking web framework alternative to Spring MVC. It was designed to support fully non-blocking reactive streams with <u>back-pressure</u><a href="#note1" id="note1ref"><sup>1</sup></a> capability, levearaging multi-core and next-generation processors on handling massive numbers of concurrent connections with a small number of threads and able to scale with fewer hardware resources. Spring WebFlux is built on top of the [Project Reactor](https://github.com/reactor/reactor) library, according to specified on the [Reactive Streams Specification](https://www.reactive-streams.org/) and runs on servers like [Netty](https://netty.io/) (default), [Undertow](https://undertow.io/) and also on Servlet 3.1+ containers.
 
 
 ## Reactive Programming
