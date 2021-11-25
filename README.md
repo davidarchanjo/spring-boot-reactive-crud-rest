@@ -214,6 +214,18 @@ Your output should be similar to the following screenshot:
   ````
   **NOTE:** According to what was set through [data.sql](src/main/resources/schema/data.sql), the application is successfully started with the database populated with three applications.
 
+2. Get App By Id
+- HTTP Method: GET
+- URL: http://localhost:8080/api/functional/apps/{id} or http://localhost:8080/api/annotation/apps/{id}
+- Response Body:
+  ````json
+  {
+    "appName": "Netflix",
+    "devName": "Foo Bar",
+    "appVersion": "0.0.1-SNAPSHOT"
+  }
+  ````
+
 2. Create New App
 - HTTP Method: POST
 - URL: http://localhost:8080/api/functional/apps or http://localhost:8080/api/annotation/apps
@@ -221,8 +233,8 @@ Your output should be similar to the following screenshot:
   ````json
   {
     "appName": "Mozilla Firefox",
-    "appVersion": "1.0.0",
-    "devName": "David Archanjo"
+    "devName": "David Archanjo",
+    "appVersion": "1.0.0"
   }
   ````
 
@@ -232,7 +244,6 @@ Your output should be similar to the following screenshot:
 - Request Body:
   ````json
   {
-    "id": 1,
     "appName": "Netflix",
     "devName": "David Archanjo",
     "appVersion": "1.0.0"
@@ -242,6 +253,14 @@ Your output should be similar to the following screenshot:
 4. Delete App
 - HTTP Method: DELETE
 - URL: http://localhost:8080/api/functional/apps/{id} or http://localhost:8080/api/annotation/apps/{id}
+
+
+## Exception Handling
+1. Trying To Access Deleted App
+  ![404_error](./assets/404_error.jpg)
+
+1. Trying To Create Duplicated App 
+  ![409_error](./assets/409_error.jpg)
 
 
 # Conclusion

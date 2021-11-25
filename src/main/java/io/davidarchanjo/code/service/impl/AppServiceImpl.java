@@ -52,7 +52,7 @@ public class AppServiceImpl implements AppService {
     @Override
     public Mono<Void> deleteById(Long id) {
         return findById(id)
-                .flatMap(__ -> repository.deleteById(id));
+            .flatMap(__ -> repository.deleteById(id));
     }
 
 }
