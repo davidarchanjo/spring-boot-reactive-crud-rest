@@ -54,10 +54,12 @@ Follows the base folders in which the project is organized and the purpose of ea
 - [📁 config](src/main/java/io/davidarchanjo/code/config): contain definition of beans through configuration classes annotated with `@Configuration`;
 - [📁 controller](src/main/java/io/davidarchanjo/code/controller): contains class annotated with `@RestController` which is where HTTP request handler methods are defined and implemented;
 - [📁 exception](src/main/java/io/davidarchanjo/code/exception): contain custom exceptions for handling specific data consistent and/or business rule violations; also contain class annotated with `@ControllerAdvice` to centralize exception handling across the whole application
+- [📁 handler](src/main/java/io/davidarchanjo/code/handler): contains a component class where are implemented handler methods for HTTP requests, in which the requests are directed to the specified business service interface;
 - [📁 domain](src/main/java/io/davidarchanjo/code/model/domain): contain POJO classes representing database entities i.e., classes mapping database tables;
 - [📁 dto](src/main/java/io/davidarchanjo/code/model/dto): contain DTO classes which are used as objects that pass through architectural boundaries to transfer data;
-- [📁 repository](src/main/java/io/davidarchanjo/code/repository): contain class annotated with `@ReactiveCrudRepository` responsible for providing the mechanism for storage, retrieval, search, update and delete operation of data against a database in a rective way;
-- [📁 service](src/main/java/io/davidarchanjo/code/service): contain class annotated with `@Service` in which business logic is implemented;
+- [📁 repository](src/main/java/io/davidarchanjo/code/repository): contains a class annotated with `@ReactiveCrudRepository` responsible for providing the mechanism for storage, retrieval, search, update and delete operation of data against a database in a rective way;
+- [📁 router](src/main/java/io/davidarchanjo/code/router): contains a configuration class where are exposed through a `@Bean` method all the HTTP routes;
+- [📁 service](src/main/java/io/davidarchanjo/code/service): contains a class annotated with `@Service` in which business logic is implemented;
 
 
 # Prerequisites
