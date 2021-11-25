@@ -210,7 +210,7 @@ Your output should be similar to the following screenshot:
     }
   ]
   ````
-  **NOTE:** According to what was set on [data.sql](src/main/resources/schema/data.sql), the application is successfully started with the database populated with three applications.
+  **NOTE:** According to what was set through [data.sql](src/main/resources/schema/data.sql), the application is successfully started with the database populated with three applications.
 
 2. Create New App
 - HTTP Method: POST
