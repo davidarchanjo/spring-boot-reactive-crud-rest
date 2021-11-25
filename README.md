@@ -152,7 +152,7 @@ For simplicity's sake, I prefer to use the command line when trying something ne
 <li>Install dependencies and build the application:</li>
   <code>mvn clean install</code>
 <li>Run the application:</li>
-  java --enable-preview -jar target/spring-boot-crud-rest-reactive-1.0.0.jar
+  <code>java --enable-preview -jar target/spring-boot-crud-rest-reactive-1.0.0.jar</code>
 </ol>
 
 **NOTE**: The <u>--enable-preview</u><a href="#note3" id="note3ref"><sup>3</sup></a> flag is used to unlock preview features on the JVM because I'm doing _new switch expression with arrow label_ as part of the implementation of the [GlobalWebFluxExceptionHandler](src/main/java/io/davidarchanjo/code/exception/GlobalWebFluxExceptionHandler.java).
