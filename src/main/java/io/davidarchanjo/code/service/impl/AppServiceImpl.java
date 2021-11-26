@@ -23,30 +23,31 @@ public class AppServiceImpl implements AppService {
     public Mono<AppDTO> save(AppDTO dto) {
         return repository.findByName(dto.getName())
             .flatMap(__ -> Mono.error(new AppAlreadyExistException("App with name - {0}, already exist", dto.getName())))
-            .switchIfEmpty(repository.save(builder.build(dto).block()))
+            .switchIfEmpty(repository.save(builder.build(dto)))
             .cast(App.class)
-            .flatMap(builder::build);
+            .flatMap(o -> Mono.just(builder.build(o)));
     }
 
     @Override
     public Mono<AppDTO> findById(Long id) {
         return repository.findById(id)
-            .flatMap(builder::build)
-            .switchIfEmpty(Mono.error(new AppNotFoundException("App with id - {0}, not found", id)));
+            .switchIfEmpty(Mono.error(new AppNotFoundException("App with id - {0}, not found", id)))
+            .flatMap(o -> Mono.just(builder.build(o)));
     }
 
     @Override
     public Flux<AppDTO> findAll() {
         return repository.findAll()
-            .flatMap(builder::build);
+            .flatMap(o -> Mono.just(builder.build(o)));
     }
 
     @Override
-    public Mono<AppDTO> updateById(Long id, AppDTO dto) {
+    public Mono<Void> updateById(Long id, AppDTO dto) {
         return repository.findById(id)
-            .flatMap(o -> repository.save(builder.build(dto, o).block()))
-            .flatMap(builder::build)
-            .switchIfEmpty(Mono.error(new AppNotFoundException("App with id - {0}, not found", id)));
+            .switchIfEmpty(Mono.error(new AppNotFoundException("App with id - {0}, not found", id)))
+            .flatMap(o -> Mono.just(builder.build(dto, o)))
+            .flatMap(repository::save)
+            .flatMap(__ -> Mono.empty());
     }
 
     @Override

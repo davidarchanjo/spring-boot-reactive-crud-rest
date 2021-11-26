@@ -246,7 +246,7 @@ Your output should be similar to the following screenshot:
 - Request Body:
   ````json
   {
-    "appName": "Mozilla Firefox",
+    "appName": "Outlook",
     "devName": "David Archanjo",
     "appVersion": "1.0.0"
   }

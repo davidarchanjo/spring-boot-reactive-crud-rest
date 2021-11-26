@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Mono;
 
 @RequiredArgsConstructor
@@ -20,8 +22,13 @@ public class AppHandler {
 
     public Mono<ServerResponse> create(ServerRequest req) {
         return req.bodyToMono(AppDTO.class)
-            .doOnNext(service::save)
-            .then(ServerResponse.noContent().build());
+            .flatMap(service::save)
+            .flatMap(o -> {
+                final UriComponents uri = UriComponentsBuilder
+                    .fromPath(req.path()+"/{id}")
+                    .buildAndExpand(o.getId());
+                return ServerResponse.created(uri.toUri()).build();
+            });
     }
 
     public Mono<ServerResponse> get(ServerRequest req) {
@@ -31,8 +38,8 @@ public class AppHandler {
 
     public Mono<ServerResponse> update(ServerRequest req) {
         return req.bodyToMono(AppDTO.class)
-            .doOnNext(o -> service.updateById(Long.valueOf(req.pathVariable("id")), o))
-            .then(ServerResponse.noContent().build());
+            .flatMap(o -> service.updateById(Long.valueOf(req.pathVariable("id")), o))
+            .flatMap(__ -> ServerResponse.noContent().build());
     }
 
     public Mono<ServerResponse> delete(ServerRequest req) {

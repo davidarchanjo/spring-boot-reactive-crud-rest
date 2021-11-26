@@ -29,6 +29,8 @@ public class GlobalWebMVCExceptionHandler {
     @ExceptionHandler(AppNotFoundException.class)
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
     public Mono<ErrorDTO> handlerAppNotFoundException(AppNotFoundException ex) {
+        log.error(ex.getMessage(), ex);
+
         final ErrorDTO error = ErrorDTO.builder()
             .code(ErrorIndicator.ERROR_RESOURCE_NOT_FOUND.getCode())
             .message(ErrorIndicator.ERROR_RESOURCE_NOT_FOUND.getMessage())
@@ -41,6 +43,8 @@ public class GlobalWebMVCExceptionHandler {
     @ExceptionHandler(AppAlreadyExistException.class)
     @ResponseStatus(value = HttpStatus.CONFLICT)
     public Mono<ErrorDTO> handlerAppAlreadyExistException(AppAlreadyExistException ex) {
+        log.error(ex.getMessage(), ex);
+
         final ErrorDTO error = ErrorDTO.builder()
             .code(ErrorIndicator.ERROR_RESOURCE_ALREADY_EXIST.getCode())
             .message(ErrorIndicator.ERROR_RESOURCE_ALREADY_EXIST.getMessage())
@@ -53,6 +57,8 @@ public class GlobalWebMVCExceptionHandler {
     @ExceptionHandler(WebExchangeBindException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Mono<ErrorDTO> handlerWebExchangeBindException(WebExchangeBindException ex) {
+        log.error(ex.getMessage(), ex);
+
         final List<String> details = ex.getAllErrors()
             .stream()
             .map(o -> messageSource.getMessage(
@@ -76,7 +82,9 @@ public class GlobalWebMVCExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public Mono<ErrorDTO> handlerException(Exception exp) {
+    public Mono<ErrorDTO> handlerException(Exception ex) {
+        log.error(ex.getMessage(), ex);
+
         final ErrorDTO error = ErrorDTO.builder()
             .code(ErrorIndicator.ERROR_INTERNAL_SERVER_FAILURE.getCode())
             .message(ErrorIndicator.ERROR_INTERNAL_SERVER_FAILURE.getMessage())
