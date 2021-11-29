@@ -122,7 +122,7 @@ By default, in non-reactive Spring Boot application, we leverage `schema.sql` an
   ### Exception Handling
   When working with Spring MVC application, `@ControllerAdvice` along with `@ExceptionHandler` provide us a way to unify and centralize exception handling across the whole application, what benefits in the reduction of code duplication and in building cleaner code. With Spring WebFlux-powered applications it wouldn't be different! 
   
-  Unfortunately `@ControllerAdvice` does not catch exceptions that happen from requests targeted to reactive routes. For this reason I implemented for both endpoint types (i.e. annotation-based and functional-route-based) global exception handling classes that can be checked on [GlobalWebMVCExceptionHandler](src/main/java/io/davidarchanjo/code/exception/GlobalWebMVCExceptionHandler.java) and [GlobalWebFluxExceptionHandler](src/main/java/io/davidarchanjo/code/exception/GlobalWebFluxExceptionHandler.java) respectively.  
+  Unfortunately `@ControllerAdvice` does not catch exceptions that happen from requests targeted to reactive routes. For this reason I implemented for both endpoint types (i.e. annotation-based and functional-route-based) global exception handling that can be checked on [GlobalWebMVCExceptionHandler](src/main/java/io/davidarchanjo/code/exception/GlobalWebMVCExceptionHandler.java) and [GlobalWebFluxExceptionHandler](src/main/java/io/davidarchanjo/code/exception/GlobalWebFluxExceptionHandler.java) classes respectively.  
 
 
 # Prerequisites
