@@ -142,7 +142,7 @@ By default, in non-reactive Spring Boot application, we leverage `schema.sql` an
 
 
 # Project Structure
-Follows the base folders in which the project is organized and the purpose of each:
+Follows the base folders, i.e. packages, in which the project is organized and the purpose of each:
 - [📁 application](src/main/java/io/davidarchanjo/code/application): contains the main class annotated with:
    * `@EntityScan` which indicates the package location of Entity classes;
    * `@SpringBootApplication` which indicates the source class to bootstrap and launch the Spring Boot application;
