@@ -183,7 +183,7 @@ So the first thing to do is create a file called `.mavenrc` in the root of your 
 export JAVA_HOME="/home/david_pereira/.jdks/openjdk-17.0.1"
 export MAVEN_OPTS="--add-opens java.base/java.lang=ALL-UNNAMED"
 ```
-_You'll have to adjust the `JAVA_HOME` to reflect the exact path where you installed it in your environment._ 
+👀 _You'll have to adjust the `JAVA_HOME` to reflect the exact path where it is installed in your environment._ 
 
 After edit and save the `.mavenrc` file, execute the following:
 ```bash
