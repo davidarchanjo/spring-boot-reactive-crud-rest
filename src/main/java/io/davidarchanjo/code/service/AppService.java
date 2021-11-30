@@ -7,8 +7,9 @@ import reactor.core.publisher.Mono;
 public interface AppService {
 
     Mono<AppDTO> save(AppDTO dto);
-    Mono<AppDTO> findById(Long id);
     Flux<AppDTO> findAll();
+    Mono<AppDTO> findById(Long id);
+    Mono<AppDTO> findByNameAndVersion(String name, String version);
     Mono<Void> updateById(Long id, AppDTO dto);
     Mono<Void> deleteById(Long id);
 

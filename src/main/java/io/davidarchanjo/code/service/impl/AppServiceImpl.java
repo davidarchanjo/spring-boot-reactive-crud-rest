@@ -29,6 +29,12 @@ public class AppServiceImpl implements AppService {
     }
 
     @Override
+    public Flux<AppDTO> findAll() {
+        return repository.findAll()
+            .flatMap(o -> Mono.just(builder.build(o)));
+    }
+
+    @Override
     public Mono<AppDTO> findById(Long id) {
         return repository.findById(id)
             .switchIfEmpty(Mono.error(new AppNotFoundException("App with id - {0}, not found", id)))
@@ -36,8 +42,9 @@ public class AppServiceImpl implements AppService {
     }
 
     @Override
-    public Flux<AppDTO> findAll() {
-        return repository.findAll()
+    public Mono<AppDTO> findByNameAndVersion(String name, String version) {
+        return repository.findByNameAndVersion(name, version)
+            .switchIfEmpty(Mono.error(new AppNotFoundException("App with name - {0} and version {1}, not found", name, version)))
             .flatMap(o -> Mono.just(builder.build(o)));
     }
 
