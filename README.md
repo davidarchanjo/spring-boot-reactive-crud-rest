@@ -246,7 +246,7 @@ Your output should be similar to the following screenshot:
 
 
 
-## Exception Handling
+## EXCEPTION HANDLING
 1. Trying To Access Deleted App
   ![404_error](./assets/404_error.jpg)
 
@@ -254,11 +254,13 @@ Your output should be similar to the following screenshot:
   ![409_error](./assets/409_error.jpg)
 
 
-# Conclusion
+
+# CONCLUSION
 In this project, my objectives were to highlight the main characteristics of the reactive programming usage on creating and working with web components supported by the Spring WebFlux framework. We also learned how to define endpoints via annotations and by function routes, by going to through how data can be manipulated reactively in contrast on how we are used to do in the "old-school way" with Spring MVC.
 
 
-# References
+
+# REFERENCES
 <a id="note1" href="#note1ref"><sup>1</sup></a> <ins>back-pressure</ins> - mechanism that allows the sender to control the rate of consumption of the data stream so that the subscriber is not overloaded.
 
 <a id="note2" href="#note2ref"><sup>2</sup></a> <ins>publisher</ins> - stream provider of a potentially unbounded number of sequenced elements, publishing them according to the demand received from its subscriber(s).
