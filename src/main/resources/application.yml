@@ -2,6 +2,6 @@ spring:
   main:
     allow-bean-definition-overriding: true
   r2dbc:
-    url: r2dbc:h2:mem:///customerdb
+    url: r2dbc:h2:mem:///appdb
     username: sa
     password:

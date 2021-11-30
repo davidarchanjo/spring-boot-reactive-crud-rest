@@ -1,13 +1,16 @@
 package io.davidarchanjo.code.handler;
 
-import io.davidarchanjo.code.model.dto.AppDTO;
-import io.davidarchanjo.code.service.AppService;
-import lombok.RequiredArgsConstructor;
+import java.util.Optional;
+
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import io.davidarchanjo.code.model.dto.AppDTO;
+import io.davidarchanjo.code.service.AppService;
+import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
 
 @RequiredArgsConstructor
@@ -17,7 +20,12 @@ public class AppHandler {
     private final AppService service;
 
     public Mono<ServerResponse> all(ServerRequest req) {
-        return ServerResponse.ok().body(service.findAll(), AppDTO.class);    
+        final Optional<String> name = req.queryParam("appName");
+        final Optional<String> version = req.queryParam("appVersion");
+
+        return name.isPresent() && version.isPresent()
+            ? ServerResponse.ok().body(service.findByNameAndVersion(name.get(), version.get()), AppDTO.class)
+            : ServerResponse.ok().body(service.findAll(), AppDTO.class);
     }
 
     public Mono<ServerResponse> create(ServerRequest req) {

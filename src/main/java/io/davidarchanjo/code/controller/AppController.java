@@ -27,17 +27,17 @@ import reactor.core.publisher.Mono;
 @RequestMapping("api/annotation/apps")
 public class AppController {
     
-    private final AppService customerService;
+    private final AppService service;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)    
     public Mono<?> create(@Valid @RequestBody AppDTO dto) {
-        return customerService.save(dto);
+        return service.save(dto);
     }
 
     @GetMapping("{id}")
     public Mono<?> findById(@PathVariable Long id) {
-        return customerService.findById(id);
+        return service.findById(id);
     }
 
     @GetMapping
@@ -46,20 +46,20 @@ public class AppController {
         @RequestParam(name = "appVersion", required = false) String version
     ) {
         return Objects.nonNull(name) && Objects.nonNull(version) 
-            ? ResponseEntity.ok(customerService.findByNameAndVersion(name, version))
-            : ResponseEntity.ok(customerService.findAll());
+            ? ResponseEntity.ok(service.findByNameAndVersion(name, version))
+            : ResponseEntity.ok(service.findAll());
     }
 
     @PutMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public Mono<?> update(@PathVariable Long id, @Valid @RequestBody AppDTO dto) {
-        return customerService.updateById(id, dto);
+        return service.updateById(id, dto);
     }
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public Mono<?> delete(@PathVariable Long id) {
-        return customerService.deleteById(id);
+        return service.deleteById(id);
     }
 
 }
